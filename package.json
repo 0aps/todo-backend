@@ -17,6 +17,7 @@
     "anxeb-mongoose": "^1.0.6",
     "anxeb-node": "^2.2.0",
     "md5": "^2.2.1",
+    "moment": "^2.29.4",
     "mongodb": "^5.5.0",
     "node4mailer": "^4.0.3",
     "puppeteer": "^19.7.2",
