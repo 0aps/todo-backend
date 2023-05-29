@@ -5,7 +5,9 @@ const anxeb = require('anxeb-node');
 module.exports = {
 	url     : '/users',
 	type    : anxeb.Route.types.action,
-	access  : anxeb.Route.access.public,
+	access  : anxeb.Route.access.private,
+	owners  :'*',
+	roles   : '*',
 	timeout : 60000,
 	methods : {
 		/**
@@ -164,7 +166,8 @@ module.exports = {
 					}
 
 					await user.delete();
-					context.ok();
+
+					context.send(user.toClient());
 				}
 			}
 		}

@@ -34,15 +34,20 @@ module.exports = function (context, user) {
 
 			return {
 				user: $user,
-				reles: $roles,
+				roles: $roles,
 				povider : $user.login.provider,
 				token: context.sign({
 					user: {
 						id : $user.id,
 						first_names: $user.first_names,
-						last_names: $user.last_names
+						last_names: $user.last_names,
+						email : $user.login.email.trim().toLowerCase(),
+						info : $user.info,
+						meta : $user.meta,
+						role : $user.role,
 					},
 					identity : $user.id,
+					claims: [],
 					roles: $roles,
 					type : $type,
 				}),

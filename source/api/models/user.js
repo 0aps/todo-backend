@@ -9,7 +9,6 @@ module.exports = {
 	methods: {
 		toClient: function () {
 			return {
-				msg: 'usuario creado',
 				id: this._id,
 				first_names: this.first_names,
 				last_names: this.last_names,

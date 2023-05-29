@@ -10,7 +10,6 @@ module.exports = {
 			first_names : fields.string({ required : true }),
 			last_names : fields.string({required: true}),
 			password : fields.string({required: true}),
-            confirmPassword : fields.string({required: true}),
 			role : fields.enum({ required: true},['admin', 'client']),
 			login : new Login.Schema({required : true, static: true}),
 			info : fields.mixed(),

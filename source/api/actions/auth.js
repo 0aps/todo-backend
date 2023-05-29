@@ -58,16 +58,17 @@ module.exports = {
         
                         if (credentials.password != null) {
                             let password = credentials.password ? credentials.password.trim() : null;
-                            let mpassword = md5(password.trim().toLowerCase());
-        
-                            let npassValid = login.password === mpassword;
+                            let hashPassword = md5(password.trim().toLowerCase());
+
+                            let npassValid = user.login.password === hashPassword;
+                            
                             // let gpassValid = user.meta && user.meta.generated_password === mpassword
         
-                            validated = password && password.length && (npassValid || gpassValid);
-                            if (gpassValid) {
-                                user.login.password = user.meta.generated_password;
-                                await user.persist();
-                            }
+                            validated = password && password.length && (npassValid); // || gpassValid
+                            // if (gpassValid) {
+                            //     user.login.password = user.meta.generated_password;
+                            //     await user.persist();
+                            // }
                         }
         
                         if (!validated) {

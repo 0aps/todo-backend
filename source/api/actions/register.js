@@ -12,7 +12,7 @@ module.exports = {
         user: {
             methods : {
                 post: async function(context) {
-                    let prospect = context.payload.prospect;
+                    let prospect = context.payload; //saque el prospect de aqui para no tener q escribirlo en postman
                     let validPassword = false
 
                     let registered_user = await context.data.find.User({'login.email' : prospect.email.trim().toLowerCase()});
@@ -29,13 +29,13 @@ module.exports = {
                     }else {
                         context.log.exception.diferent_passwords.args(prospect.password).throw(context);
                     }
-                    let gpassword= context.utils.security.getRandomPassword();
-                    let mpassword= md5(gpassword.toLowerCase());
+
+                    let hashPassword= md5(prospect.password.toLowerCase());
 
                     let user;
                     if(registered_user) {
                         user= registered_user;
-                        user.login.password = mpassword;
+                        user.login.password = hashPassword;
                         user.login.date = anxeb.utils.date.utc().unix();
                         user.meta.headers = anxeb.utils.data.copy(context.req.headers);
                         delete user.meta.deleted;
@@ -44,13 +44,12 @@ module.exports = {
                         user = context.data.create.User({
                             first_names : prospect.first_names,
                             last_names : prospect.last_names,
-                            password : prospect.password,
-                            confirmPassword: prospect.confirmPassword,
+                            password : md5(prospect.password.toLowerCase()),
                             role : prospect.role,//no entiendo xq el harcodea cliente
                             login : {
                                 provider : 'email',
                                 email : prospect.email.trim().toLowerCase(),
-                                password : prospect.password,
+                                password : md5(prospect.password.toLowerCase()),
                                 state : 'unconfirmed',
                                 date : anxeb.utils.date.utc().unix(),
                                 token : null,
