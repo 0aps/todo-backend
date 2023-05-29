@@ -53,6 +53,11 @@ module.exports = {
 		code    : 903,
 		type    : eventTypes.user_exception
 	},
+	diferent_passwords            : {
+		message : 'Las contraseñas deben ser las mismas',
+		code    : 906,
+		type    : eventTypes.user_exception
+	},
 	fixed_email                 : {
 		message : 'Correo social no puede ser modificado',
 		code    : 919,
@@ -77,5 +82,6 @@ module.exports = {
 		message : 'No puede eliminar su propio usuario',
 		code    : 905,
 		type    : eventTypes.user_exception
-	}
+	},
+
 };

@@ -9,7 +9,6 @@ module.exports = {
 			provider : fields.enum({ required: true},['email', 'facebook','google', 'apple']),
 			email : fields.string({ required : true , index : true }),
 			password : fields.string({required: true}),
-          //  confirmPassword : fields.string({required: true}),
             state : fields.enum({ required: true},['active', 'incative','unconfirmed', 'removed']),
             date : fields.number(),
             token : fields.string(),

@@ -8,7 +8,8 @@
     "url": "git@github.com:0aps/todo-backend.git"
   },
   "scripts": {
-    "start": "node entry.js"
+    "start": "node entry.js",
+    "dev": "nodemon entry.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "moment": "^2.29.4",
     "mongodb": "^5.5.0",
     "node4mailer": "^4.0.3",
+    "nodemon": "^2.0.22",
     "puppeteer": "^19.7.2",
     "sharp": "^0.31.3"
   }

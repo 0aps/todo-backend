@@ -23,7 +23,6 @@ module.exports = {
 		 *              $ref: '#/components/schemas/UserList'
 		 */
 		get : async function (context) {
-			console.log(context.payload);
 			const users = await context.data.list.User({});
 			context.send(users.toClient());
 		},
@@ -47,19 +46,19 @@ module.exports = {
 		 *            schema:
 		 *              $ref: '#/components/schemas/User'
 		 */
-		post : async function (context) {
-			const payload = context.payload;
-			const user = context.data.create.User({
-				first_names : payload.first_names,
-				last_names : payload.last_names,
-				role : payload.role,
+		// post : async function (context) {
+		// 	const payload = context.payload;
+		// 	const user = context.data.create.User({
+		// 		first_names : payload.first_names,
+		// 		last_names : payload.last_names,
+		// 		role : payload.role,
 
-			});
+		// 	});
 
-			await user.persist();
+		// 	await user.persist();
 
-			context.send(user.toClient());
-		}
+		// 	context.send(user.toClient());
+		// }
 	},
 	childs  : {
 		item : {
