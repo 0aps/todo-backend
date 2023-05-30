@@ -118,6 +118,7 @@ const getUserData = async function (params) {
 
     if (params.email != null) {
         query['login.email'] = params.email.trim().toLowerCase();
+        console.log(object);
     } 
     // else if (params.id != null) {
         //     query._id = params.id;
@@ -127,4 +128,4 @@ const getUserData = async function (params) {
         }
     query['meta.deleted'] = { $exists: false };
     return await context.data.find.User(query);
-}
+} 
