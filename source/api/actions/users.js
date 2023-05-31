@@ -5,7 +5,7 @@ const anxeb = require('anxeb-node');
 module.exports = {
 	url     : '/users',
 	type    : anxeb.Route.types.action,
-	access  : anxeb.Route.access.private,
+	access  : anxeb.Route.access.public,
 	owners  :'*',
 	roles   : '*',
 	timeout : 60000,

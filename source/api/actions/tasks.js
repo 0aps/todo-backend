@@ -3,13 +3,13 @@
 const anxeb = require('anxeb-node');
 
 module.exports = {
-	url     : '/tasks',
-	type    : anxeb.Route.types.action,
-	access  : anxeb.Route.access.public,
-	owners  :'*',
-	roles   : '*',
-	timeout : 60000,
-	methods : {
+	url: '/tasks',
+	type: anxeb.Route.types.action,
+	access: anxeb.Route.access.private,
+	owners: '*',
+	roles:  '*',
+	timeout: 60000,
+	methods: {
 		/**
 		 * @openapi
 		 * /users:
@@ -24,8 +24,12 @@ module.exports = {
 		 *            schema:
 		 *              $ref: '#/components/schemas/UserList'
 		 */
-		get : async function (context) {
-			const tasks = await context.data.list.Task({});
+		get: async function (context) {
+			const query = context.query || {};
+			if (!context.isAdmin){
+					query['user'] = context.profile.identity;
+			}
+			const tasks = await context.data.list.Task(query);
 			context.send(tasks.toClient());
 		},
 		/**
@@ -48,24 +52,26 @@ module.exports = {
 		 *            schema:
 		 *              $ref: '#/components/schemas/User'
 		 */
-		// post : async function (context) {
-		// 	const payload = context.payload;
-		// 	const user = context.data.create.User({
-		// 		first_names : payload.first_names,
-		// 		last_names : payload.last_names,
-		// 		role : payload.role,
+		post: async function (context) {
+			const payload = context.payload;
+			const task = context.data.create.Task({
+				title: payload.title,
+				description: payload.description,
+				priority: payload.priority ? payload.priority : 'green',
+				checks: payload.checks,
+				date: anxeb.utils.date.utc().unix(),
+				user: context.profile.identity // accedo al id del usuario y lo guardo
+			});
 
-		// 	});
+			await task.persist();
 
-		// 	await user.persist();
-
-		// 	context.send(user.toClient());
-		// }
+			context.send(task.toClient());
+		}
 	},
-	childs  : {
-		item : {
-			url     : '/:taskId',
-			methods : {
+	childs: {
+		item: {
+			url: '/:taskId',
+			methods: {
 				/**
 				 * @openapi
 				 * /users/{userId}:
@@ -88,15 +94,25 @@ module.exports = {
 				 *       404:
 				 *         description: The user was not found
 				 */
-				get : async function (context) {
+				get: async function (context) {
 					const task = await context.data.retrieve.Task(context.params.taskId);
-
-					if (!task) {
-						context.log.exception.record_not_found.args('Tarea', context.params.taskId).throw();
+					if (context.isAdmin) {
+						if (!task) {
+							context.log.exception.record_not_found.args('Tarea', context.params.taskId).throw();
+						}	
+						context.send(task.toClient());
 					}
+					const query = context.query || {};
+					if (!context.isAdmin){
+						query['user'] = context.profile.identity;
 
-					context.send(task.toClient());
+
+						task.user == context.profile.identity? await context.send(task.toClient()):
+						context.log.exception.record_not_found.args('Tarea', context.params.taskId).throw();
+							
+				}		
 				},
+				
 				/**
 				 * @openapi
 				 * /users/{userId}:
@@ -127,15 +143,26 @@ module.exports = {
 				 *       500:
 				 *         description: An error happened
 				 */
-				put : async function (context) {
+				put: async function (context) {
 					const task = await context.data.retrieve.Task(context.params.taskId);
 					const payload = context.payload;
-
-					if (!task) {
-						context.log.exception.record_not_found.args('Tarea', context.params.taskrId).throw();
+					if (context.isAdmin) {
+						const payload = context.payload;
+						if (!task) {
+							context.log.exception.record_not_found.args('Tarea', context.params.taskrId).throw();
+						}
+						task.title = payload.title;
 					}
-
-					task.title = payload.title;
+					const query = context.query || {};
+					if (!context.isAdmin){
+						query['user'] = context.profile.identity;
+						if (task.user == context.profile.identity) {
+							task.title = payload.title;
+							await context.send(task.toClient());
+						}else{
+							context.log.exception.record_not_found.args('Tarea', context.params.taskId).throw();
+						}
+					}
 					await task.persist();
 
 					context.send(task.toClient());
@@ -158,13 +185,22 @@ module.exports = {
 				 *       404:
 				 *         description: The user was not found
 				 */
-				delete : async function (context) {
+				delete: async function (context) {
 					const task = await context.data.retrieve.Task(context.params.taskId);
-
+					if (context.isAdmin) {
 					if (!task) {
 						context.log.exception.record_not_found.args('Tarea', context.params.taskId).throw();
 					}
-
+				}
+				const query = context.query || {};
+					if (!context.isAdmin){
+						query['user'] = context.profile.identity;
+						if (task.user == context.profile.identity) {
+							await task.delete();
+						}else{
+							context.log.exception.record_not_found.args('Tarea', context.params.taskId).throw();
+						}
+					}
 					await task.delete();
 
 					context.send(task.toClient());

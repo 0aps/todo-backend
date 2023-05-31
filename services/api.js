@@ -72,6 +72,9 @@ module.exports = {
 							}
 						}
 					},
+					isAdmin : function(context){
+						return context.profile && context.profile.user.role === 'admin';
+					},
 					utils    : require('../source/middleware/utils'),
 				},
 				methods    : {

@@ -7,13 +7,15 @@ module.exports = {
 	schema: new Task.Schema(),
 	methods: {
 		toClient: function () {
+
 			return {
 				id: this._id,
 				title: this.title,
 				description: this.descrition,
 				priority: this.priority,
-				check: this.check,
-				date: this.date
+				checks: this.checks,
+				date: this.date,
+				user: this.user
 			}
 		},
 	}
