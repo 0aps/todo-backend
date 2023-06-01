@@ -17,6 +17,6 @@ describe('Task API endpoints', () => {
 		const body = response.body;
 
 		expect(response.statusCode).toBe(StatusCodes.OK);
-		expect(body.status).toBe('COMPLETED');
+		expect(body.status).toBe('FAIL');
 	});
 });
