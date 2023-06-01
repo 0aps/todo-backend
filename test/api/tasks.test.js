@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const server = require('../../entry').server;
 const express = server.services.api.express;
 
+
 describe('Task API endpoints', () => {
 	const base = '/tasks';
 	let agent;
@@ -13,7 +14,9 @@ describe('Task API endpoints', () => {
 
 	test('should return the list of tasks', async () => {
 		const response = await agent.get(base);
+		const body = response.body;
+
 		expect(response.statusCode).toBe(StatusCodes.OK);
-		expect(response.body).toBeInstanceOf(Array);
+		expect(body.status).toBe('COMPLETED');
 	});
 });

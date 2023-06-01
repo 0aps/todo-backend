@@ -15,6 +15,11 @@ module.exports = {
 				secret : process.env.JWT_SECRET || 'fdsg88w99m5h8wyer0h,',
 				resave : false,
 			},
+			keys : {
+				private    : '/development.rsa',
+				public     : '/development.pem',
+				expiration : 80000
+			}
 		},
 		mongodb  : {
 			key          : 'todo-dev-db',

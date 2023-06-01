@@ -6,6 +6,8 @@ module.exports = {
 	url     : '/users',
 	type    : anxeb.Route.types.action,
 	access  : anxeb.Route.access.private,
+	owners  : '*',
+	roles   : '*',
 	timeout : 60000,
 	methods : {
 		/**
@@ -27,7 +29,7 @@ module.exports = {
 			context.send(users.toClient());
 		},
 		/**
-		 * @swagger
+		 * @openapi
 		 * /users:
 		 *   post:
 		 *     description: Create a new user

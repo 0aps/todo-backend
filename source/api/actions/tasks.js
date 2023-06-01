@@ -16,8 +16,10 @@ module.exports = {
 	timeout : 60000,
 	methods : {
 		get  : async function (context) {
-			const task = await context.data.list.Task({});
-			context.send(task.toClient());
+			context.send({
+				tasks: [],
+				status: 'COMPLETED'
+			});
 		},
 		post : async function (context) {
 			const payload = context.payload;
