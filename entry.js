@@ -35,3 +35,7 @@ let server = new Server({
 });
 
 server.start();
+
+module.exports = {
+	server
+};

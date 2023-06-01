@@ -1,6 +1,7 @@
 ## To-do Platform
 
 ![Version](https://img.shields.io/badge/node-%3E%3D%2018.0.0-brightgreen.svg)
+[![Build Status](https://github.com/0aps/todo-backend/workflows/CI%20Backend/badge.svg)](https://github.com/0aps/todo-backend/actions)
 
 > Backend API to manage to-do list for specific users.
 

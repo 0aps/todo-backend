@@ -280,9 +280,7 @@ module.exports = function (context, params) {
 		}
 
 		if (params.template.endsWith('hbs')) {
-			compilerParams = {
-				hbs : anxeb.utils.path.join(_templatesPath, params.template)
-			}
+			compilerParams = anxeb.utils.path.join(_templatesPath, params.template);
 		} else {
 			const res = await _context.socket.do.get({
 				uri     : context.service.socket.uri + anxeb.utils.url.normalize(params.template),

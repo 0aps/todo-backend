@@ -77,5 +77,10 @@ module.exports = {
 		message : 'No puede eliminar su propio usuario',
 		code    : 905,
 		type    : eventTypes.user_exception
-	}
+	},
+	my_custom_exception         : {
+		message : 'My custom exception',
+		code    : 905,
+		type    : eventTypes.user_exception
+	},
 };

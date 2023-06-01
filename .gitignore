@@ -33,3 +33,4 @@ Thumbs.db
 npm-debug.log
 .env
 source/admin/static
+coverage
