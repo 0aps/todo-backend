@@ -11,7 +11,7 @@ module.exports = {
 			return {
 				id: this._id,
 				title: this.title,
-				description: this.descrition,
+				taskDescription: this.taskDescription,
 				priority: this.priority,
 				checks: this.checks,
 				date: this.date,

@@ -53,10 +53,11 @@ module.exports = {
 		 *              $ref: '#/components/schemas/User'
 		 */
 		post: async function (context) {
-			const payload = context.payload;
+			const payload = context.payload.task;
+			console.log(payload)
 			const task = context.data.create.Task({
 				title: payload.title,
-				description: payload.description,
+				taskDescription: payload.taskDescription,
 				priority: payload.priority ? payload.priority : 'green',
 				checks: payload.checks,
 				date: anxeb.utils.date.utc().unix(),
