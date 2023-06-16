@@ -12,26 +12,6 @@ module.exports = {
     childs : {
         user :{
             methods: {
-                /**
-                 * @swagger
-                 * /users:
-                 *   post:
-                 *     description: Create a new user
-                 *     tags: [Users]
-                 *     requestBody:
-                 *       required: true
-                 *       content:
-                 *         application/json:
-                 *           schema:
-                 *             $ref: '#/components/schemas/UserPayload'
-                 *     responses:
-                 *       200:
-                 *         description: The user was created
-                 *         content:
-                 *           application/json:
-                 *            schema:
-                 *              $ref: '#/components/schemas/User'
-                 */
                 post: async function (context) {
                     let credentials = context.payload;
         

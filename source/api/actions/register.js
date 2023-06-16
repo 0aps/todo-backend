@@ -14,7 +14,6 @@ module.exports = {
                 post: async function(context) {
                     let prospect = context.payload.user; //FRONT
                    // let prospect = context.payload;   //POSTMAN
-                    console.log(prospect);
                     let validPassword = false
 
                     let registered_user = await context.data.find.User({'login.email' : prospect.login.email.trim().toLowerCase()});

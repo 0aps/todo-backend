@@ -55,11 +55,12 @@ module.exports = {
 		post: async function (context) {
 			const payload = context.payload.task;
 			console.log(payload)
+
 			const task = context.data.create.Task({
 				title: payload.title,
 				taskDescription: payload.taskDescription,
 				priority: payload.priority ? payload.priority : 'green',
-				checks: payload.checks,
+				checks: payload.checks? payload.checks : false,
 				date: anxeb.utils.date.utc().unix(),
 				user: context.profile.identity // accedo al id del usuario y lo guardo
 			});

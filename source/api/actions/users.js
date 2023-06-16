@@ -9,6 +9,7 @@ module.exports = {
 	type    : anxeb.Route.types.action,
 	access  : anxeb.Route.access.private,
 	owners  :'*',
+	roles   :'*', 
 	timeout : 60000,
 	methods : {
 
