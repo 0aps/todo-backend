@@ -5,7 +5,7 @@ const anxeb = require('anxeb-node');
 module.exports = {
 	url: '/tasks',
 	type: anxeb.Route.types.action,
-	access: anxeb.Route.access.private,
+	access: anxeb.Route.access.public,
 	owners: '*',
 	roles:  '*',
 	timeout: 60000,
@@ -26,9 +26,9 @@ module.exports = {
 		 */
 		get: async function (context) {
 			const query = context.query || {};
-			if (!context.isAdmin){
-					query['user'] = context.profile.identity;
-			}
+			// if (!context.isAdmin){
+			// 		query['user'] = context.profile.identity;
+			// }
 			const tasks = await context.data.list.Task(query);
 			context.send(tasks.toClient());
 		},

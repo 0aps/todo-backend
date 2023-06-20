@@ -14,6 +14,7 @@ module.exports = {
             methods: {
                 post: async function (context) {
                     let credentials = context.payload;
+                    console.log(credentials);
         
                     // let authType = context.query.type || 'email';
                     let email = credentials.email ? credentials.email.trim().toLowerCase() : null;
@@ -77,7 +78,7 @@ module.exports = {
                             }
                         })
         
-                        context.send(response)
+                        context.send(response) 
         
                     }
         
