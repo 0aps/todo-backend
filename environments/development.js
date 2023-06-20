@@ -40,8 +40,8 @@ module.exports = {
 			port    : 587,
 			secure  : false,
 			auth    : {
-				user : 'bcbwkcnlkwhbencz@ethereal.email',
-				pass : 'dktVT2dDBuYuWkKG3h'
+				user : 'reece15@ethereal.email',
+				pass : 'ctDqfXncG9VZRaPx7D'
 			}
 		}
 	},
